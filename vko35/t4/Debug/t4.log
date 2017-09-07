@@ -1,0 +1,4 @@
+﻿  t4.cpp
+c:\users\olli\documents\koulu\olio-ohjelmointi\3007-repo\vko35\t4\t4.cpp(41): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  t4.vcxproj -> C:\Users\Olli\Documents\Koulu\Olio-ohjelmointi\3007-repo\vko35\Debug\t4.exe
+  t4.vcxproj -> C:\Users\Olli\Documents\Koulu\Olio-ohjelmointi\3007-repo\vko35\Debug\t4.pdb (Partial PDB)
