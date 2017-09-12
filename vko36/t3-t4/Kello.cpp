@@ -3,21 +3,39 @@
 
 #include "Kello.h"
 
-using std::cout; using std::endl; using std::setw; using std::setfill;
+using std::cout; using std::endl; using std::setw; using std::setfill; using std::cin;
 
 
 int Kello::annaTunnit()
 {
+	do
+	{
+		cout << "Anna tunnit: ";
+		cin >> hh_;
+	} while (hh_ < 0 || hh_ > 23);
+
 	return hh_;
 }
 
 int Kello::annaMinuutit()
 {
+	do
+	{
+		cout << "Anna minuutit: ";
+		cin >> mm_;
+	} while (mm_ < 0 || mm_ > 59);
+
 	return mm_;
 }
 
 int Kello::annaSekunnit()
 {
+	do
+	{
+		cout << "Anna sekunnit: ";
+		cin >> ss_;
+	} while (ss_ < 0 || ss_ > 59);
+
 	return ss_;
 }
 
