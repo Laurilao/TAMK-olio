@@ -7,7 +7,7 @@ public:
 	Paivays(int pp, int kk, int vv);  // param. rakentaja
 	~Paivays();  // purkaja
 
-				 // getters (lukurutiinit)
+	// getters (lukurutiinit)
 	int annaPaiva();
 	int annaKuukausi();
 	int annaVuosi();
