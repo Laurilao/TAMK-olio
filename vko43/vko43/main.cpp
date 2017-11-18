@@ -17,6 +17,7 @@ int main()
 	koulu.tulostaOpiskelijat();
 	*/
 
+	 //T3 - T4// 
 	Koulu school = Koulu();
 
 	school.lisaaKoulutusohjelma();
