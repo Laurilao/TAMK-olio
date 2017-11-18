@@ -10,12 +10,10 @@ public:
 	Henkilo(string etunimi, string sukunimi, string osoite, string puhelinnumero);
 	Henkilo(const Henkilo &alkup);
 	~Henkilo();
-
 	string annaEtunimi() const;
 	string annaSukunimi() const;
 	string annaOsoite() const;
 	string annaPuhelinnumero() const;
-
 	void asetaEtunimi(string etunimi);
 	void asetaSukunimi(string sukunimi);
 	void asetaOsoite(string osoite);

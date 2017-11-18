@@ -10,7 +10,7 @@ public:
 	Opettaja(const Opettaja & alkup);
 	~Opettaja();
 
-	string annaOpetusala() const;
+	string annaOpetusala();
 
 	void asetaOpetusala(string opetusala);
 

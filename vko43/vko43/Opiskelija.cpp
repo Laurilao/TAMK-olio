@@ -5,24 +5,24 @@ using std::endl; using std::cout; using std::cin; using std::getline;
 
 Opiskelija::Opiskelija() : Henkilo(), opiskelijanumero_("1301337")
 {
-	//cout << "Oletusrakentaja (opiskelija)" << endl;
+	cout << "Oletusrakentaja (opiskelija)" << endl;
 }
 
 Opiskelija::Opiskelija(string etunimi, string sukunimi, string osoite, string puhelinnumero, string opiskelijanumero) :
 	Henkilo(etunimi, sukunimi, osoite, puhelinnumero), opiskelijanumero_(opiskelijanumero)
 {
-	//cout << "Param. rakentaja (opiskelija)" << endl;
+	cout << "Param. rakentaja (opiskelija)" << endl;
 }
 
 Opiskelija::Opiskelija(const Opiskelija & alkup) : Henkilo(alkup), opiskelijanumero_(alkup.opiskelijanumero_)
 {
-	//cout << "Kopiorakentaja (opiskelija)" << endl;
+	cout << "Kopiorakentaja (opiskelija)" << endl;
 }
 
 Opiskelija::~Opiskelija()
 {
-	//cout << "Opiskelijapurkaja" << endl;
-	//system("pause");
+	cout << "Opiskelijapurkaja" << endl;
+	system("pause");
 }
 
 string Opiskelija::annaOpiskelijanumero() const

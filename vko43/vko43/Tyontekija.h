@@ -10,8 +10,8 @@ public:
 	Tyontekija(const Tyontekija & alkup);
 	~Tyontekija();
 
-	double annaPalkka() const;
-	string annaTunnus() const;
+	double annaPalkka();
+	string annaTunnus();
 
 	void asetaPalkka(double palkka);
 	void asetaTunnus(string tunnus);

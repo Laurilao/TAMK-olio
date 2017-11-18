@@ -5,28 +5,28 @@ using std::endl; using std::cout; using std::cin; using std::getline;
 
 Henkilo::Henkilo() : etunimi_("Pekka"), sukunimi_("Pouta"), osoite_("Saakuja"), puhelinnumero_("040888888")
 {
-	//cout << "Oletusrakentaja (henkilo)" << endl;
+	cout << "Oletusrakentaja (henkilo)" << endl;
 }
 
 Henkilo::Henkilo(string etunimi, string sukunimi, string osoite,
 	string puhelinnumero) : etunimi_(etunimi), sukunimi_(sukunimi),
 	osoite_(osoite), puhelinnumero_(puhelinnumero)
 {
-	//cout << "Param. rakentaja (henkilo)" << endl;
+	cout << "Param. rakentaja (henkilo)" << endl;
 }
 
 Henkilo::Henkilo(const Henkilo &alkup) : etunimi_(alkup.etunimi_),
 sukunimi_(alkup.sukunimi_), osoite_(alkup.osoite_),
 puhelinnumero_(alkup.puhelinnumero_)
 {
-	//cout << "Kopiorakentaja (henkilo)" << endl;
+	cout << "Kopiorakentaja (henkilo)" << endl;
 }
 
 
 Henkilo::~Henkilo()
 {
-	//cout << "Henkilopurkaja" << endl;
-	//system("pause");
+	cout << "Henkilopurkaja" << endl;
+	system("pause");
 }
 
 string Henkilo::annaEtunimi() const
@@ -83,6 +83,6 @@ void Henkilo::kysyTiedot()
 
 void Henkilo::tulosta() const
 {
-	cout << etunimi_ << " " << sukunimi_ << ", " << osoite_ << ", " <<
+	cout << etunimi_ << " " << sukunimi_ << " " << osoite_ << " " <<
 		puhelinnumero_ << endl;
 }
