@@ -28,6 +28,7 @@ public:
 	bool samaTunnus(string tunnus); // Opettajien tunnusten duplicate tarkastus
 	int valitseOpettaja();
 	void tuoOpettaja(string etunimi, string sukunimi, string osoite, string puhelinnumero, string palkka, string tunnus, string opetusala);
+	vector<Opettaja> annaOpettajat();  // Hae koulutusohjelman kaikki opettajat
 
 	// Opiskelijametodit
 	void lisaaOpiskelija();
@@ -37,6 +38,7 @@ public:
 	bool samaNumero(string numero); // Opiskelijanumeroiden duplicate tarkastus
 	int valitseOpiskelija();
 	void tuoOpiskelija(string etunimi, string sukunimi, string osoite, string puhelinnumero, string opiskelijanumero);
+	vector<Opiskelija> annaOpiskelijat();  // Hae koulutsohjelman kaikki opiskelijat
 
 	void tulosta();
 

@@ -347,6 +347,23 @@ void Koulutusohjelma::tuoOpiskelija(string etunimi, string sukunimi, string osoi
 	opiskelijat_.push_back(uusi);
 }
 
+vector<Opiskelija> Koulutusohjelma::annaOpiskelijat()
+{
+	if (opiskelijat_.size() > 0)
+	{
+		vector<Opiskelija> oppilaat;
+
+		for (int i = 0; i < opiskelijat_.size(); i++)
+		{
+			oppilaat.push_back(opiskelijat_[i]);
+		}
+
+		return oppilaat;
+	}
+}
+
+
+
 void Koulutusohjelma::tulosta()
 {
 	cout << "Koulutusohjelma: " << nimi_ << endl;
@@ -393,3 +410,18 @@ void Koulutusohjelma::tuoOpettaja(string etunimi, string sukunimi, string osoite
 
 	opettajat_.push_back(uusi);
 }
+
+vector<Opettaja> Koulutusohjelma::annaOpettajat()
+{
+	if (opettajat_.size() > 0)
+	{
+		vector<Opettaja> opet;
+
+		for (int i = 0; i < opettajat_.size(); i++)
+		{
+			opet.push_back(opettajat_[i]);
+		}
+		return opet;
+	}
+}
+

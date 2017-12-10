@@ -164,67 +164,65 @@ void Koulu::tuoTiedot()
 
 	if (valinta == "1")
 	{
-		inFile.open("Opettajat.csv");
 
-		if (inFile.is_open())
+		// Yritä avata tiedosto, jos ei onnistu niin tulosta viesti ja palaa
+		try
 		{
-			string rivi;
+			inFile.open("Opettajat.csv");
 
-			while (inFile.peek() != EOF)
+			if (!inFile.is_open())
 			{
-				// Opettajatiedoille apumuuttujat
-				string kOhjelma, etunimi, sukunimi, osoite, puhelinnumero, palkka, tunnus, opetusala;
-				// Lue yksi rivi (1 opettaja)
-				getline(inFile, rivi);
-				// Tee rivista luettava stream nimelta tieto
-				istringstream tieto(rivi);
+				throw "Tiedostoa ei voitu avata";
+			}
+		}
+		catch (const char* error)
+		{
+			cout << endl << error << endl;
+			return;
+		}
 
-				// Lue rivilta tiedot
-				getline(tieto, kOhjelma, ';');
-				getline(tieto, etunimi, ';');
-				getline(tieto, sukunimi, ';');
-				getline(tieto, osoite, ';');
-				getline(tieto, puhelinnumero, ';');
-				getline(tieto, tunnus, ';');
-				getline(tieto, palkka, ';');
-				getline(tieto, opetusala, ';');
+		// Jos avaaminen onnistui, lisää opettajat
+		string rivi;
 
-				// Tarkasta onko koulutusohjelmia olemassa yhtakaan
-				if (koulutusohjelmat_.size() > 0)
+		while (inFile.peek() != EOF)
+		{
+			// Opettajatiedoille apumuuttujat
+			string kOhjelma, etunimi, sukunimi, osoite, puhelinnumero, palkka, tunnus, opetusala;
+			// Lue yksi rivi (1 opettaja)
+			getline(inFile, rivi);
+			// Tee rivista luettava stream nimelta tieto
+			istringstream tieto(rivi);
+
+			// Lue rivilta tiedot
+			getline(tieto, kOhjelma, ';');
+			getline(tieto, etunimi, ';');
+			getline(tieto, sukunimi, ';');
+			getline(tieto, osoite, ';');
+			getline(tieto, puhelinnumero, ';');
+			getline(tieto, tunnus, ';');
+			getline(tieto, palkka, ';');
+			getline(tieto, opetusala, ';');
+
+			// Tarkasta onko koulutusohjelmia olemassa yhtakaan
+			if (koulutusohjelmat_.size() > 0)
+			{
+				bool onOlemassa = false;  // Apumuuttuja
+
+				// Tarkasta onko lisattava koulutusohjelma jo vektorissa
+				for (int i = 0; i != koulutusohjelmat_.size(); i++)
 				{
-					bool onOlemassa = false;  // Apumuuttuja
-
-					// Tarkasta onko lisattava koulutusohjelma jo vektorissa
-					for (int i = 0; i != koulutusohjelmat_.size(); i++)
+					if (koulutusohjelmat_[i].annaNimi() == kOhjelma)
 					{
-						if (koulutusohjelmat_[i].annaNimi() == kOhjelma)
-						{
-							// Loytyi olemassa oleva ohjelma, lisataan siihen opettaja
-							onOlemassa = true;
-							koulutusohjelmat_[i].tuoOpettaja(etunimi, sukunimi, osoite, puhelinnumero, palkka, tunnus, opetusala);
-							cout << "Opettaja lisatty!" << endl;
-						}
-					}
-
-					// Jos koulutusohjelmaa ei loydy vektorista, luodaan uusi koulutusohjelma
-					if (!onOlemassa)
-					{
-						koulutusohjelmat_.push_back(Koulutusohjelma(kOhjelma));
-
-						// Etsitaan tehty koulutusohjelma ja lisataan opettaja
-						for (int j = 0; j != koulutusohjelmat_.size(); j++)
-						{
-							if (koulutusohjelmat_[j].annaNimi() == kOhjelma)
-							{
-								koulutusohjelmat_[j].tuoOpettaja(etunimi, sukunimi, osoite, puhelinnumero, palkka, tunnus, opetusala);
-							}
-						}
+						// Loytyi olemassa oleva ohjelma, lisataan siihen opettaja
+						onOlemassa = true;
+						koulutusohjelmat_[i].tuoOpettaja(etunimi, sukunimi, osoite, puhelinnumero, palkka, tunnus, opetusala);
+						cout << "Opettaja lisatty!" << endl;
 					}
 				}
-				// Koulutusohjelmia ei viela olemassa
-				else
+
+				// Jos koulutusohjelmaa ei loydy vektorista, luodaan uusi koulutusohjelma
+				if (!onOlemassa)
 				{
-					// Luodaan uusi
 					koulutusohjelmat_.push_back(Koulutusohjelma(kOhjelma));
 
 					// Etsitaan tehty koulutusohjelma ja lisataan opettaja
@@ -233,80 +231,90 @@ void Koulu::tuoTiedot()
 						if (koulutusohjelmat_[j].annaNimi() == kOhjelma)
 						{
 							koulutusohjelmat_[j].tuoOpettaja(etunimi, sukunimi, osoite, puhelinnumero, palkka, tunnus, opetusala);
-							cout << "Opettaja lisatty!" << endl;
 						}
 					}
 				}
 			}
+			// Koulutusohjelmia ei viela olemassa
+			else
+			{
+				// Luodaan uusi
+				koulutusohjelmat_.push_back(Koulutusohjelma(kOhjelma));
+
+				// Etsitaan tehty koulutusohjelma ja lisataan opettaja
+				for (int j = 0; j != koulutusohjelmat_.size(); j++)
+				{
+					if (koulutusohjelmat_[j].annaNimi() == kOhjelma)
+					{
+						koulutusohjelmat_[j].tuoOpettaja(etunimi, sukunimi, osoite, puhelinnumero, palkka, tunnus, opetusala);
+						cout << "Opettaja lisatty!" << endl;
+					}
+				}
+			}
 		}
-		else
-		{
-			cout << "Tiedostoa ei voitu avata" << endl;
-		}
+		
+		
 	}
 	else
 	{
-		inFile.open("Opiskelijat.csv");
-
-		if (inFile.is_open())
+		// Yritä avata tiedosto, jos ei onnistu niin tulosta viesti ja palaa
+		try
 		{
-			string rivi;
+			inFile.open("Opiskelijat.csv");
 
-			while (inFile.peek() != EOF)
+			if (!inFile.is_open())
 			{
-				// Opiskelijatiedoille apumuuttujat
-				string kOhjelma, etunimi, sukunimi, osoite, puhelinnumero, opiskelijanumero;
+				throw "Tiedostoa ei voitu avata";
+			}
+		}
+		catch (const char* error)
+		{
+			cout << endl << error << endl;
+			return;
+		}
 
-				// Lue 1 rivi (1 opiskelija)
-				getline(inFile, rivi);
+		// Jos avaaminen onnistui, lisää opiskelijat
+		string rivi;
 
-				// Tee rivista luettava stream nimelta tieto
-				istringstream tieto(rivi);
+		while (inFile.peek() != EOF)
+		{
+			// Opiskelijatiedoille apumuuttujat
+			string kOhjelma, etunimi, sukunimi, osoite, puhelinnumero, opiskelijanumero;
 
-				// Lue rivilta tiedot
-				getline(tieto, kOhjelma, ';');
-				getline(tieto, etunimi, ';');
-				getline(tieto, sukunimi, ';');
-				getline(tieto, osoite, ';');
-				getline(tieto, puhelinnumero, ';');
-				getline(tieto, opiskelijanumero, ';');
+			// Lue 1 rivi (1 opiskelija)
+			getline(inFile, rivi);
 
-				// Tarkasta onko koulutusohjelmia olemassa yhtakaan
-				if (koulutusohjelmat_.size() > 0)
+			// Tee rivista luettava stream nimelta tieto
+			istringstream tieto(rivi);
+
+			// Lue rivilta tiedot
+			getline(tieto, kOhjelma, ';');
+			getline(tieto, etunimi, ';');
+			getline(tieto, sukunimi, ';');
+			getline(tieto, osoite, ';');
+			getline(tieto, puhelinnumero, ';');
+			getline(tieto, opiskelijanumero, ';');
+
+			// Tarkasta onko koulutusohjelmia olemassa yhtakaan
+			if (koulutusohjelmat_.size() > 0)
+			{
+				bool onOlemassa = false;  // Apumuuttuja
+
+				// Tarkasta onko lisattava koulutusohjelma jo vektorissa
+				for (int i = 0; i != koulutusohjelmat_.size(); i++)
 				{
-					bool onOlemassa = false;  // Apumuuttuja
-
-					// Tarkasta onko lisattava koulutusohjelma jo vektorissa
-					for (int i = 0; i != koulutusohjelmat_.size(); i++)
+					if (koulutusohjelmat_[i].annaNimi() == kOhjelma)
 					{
-						if (koulutusohjelmat_[i].annaNimi() == kOhjelma)
-						{
-							// Loytyi olemassa oleva ohjelma, lisataan siihen opiskelija
-							onOlemassa = true;
-							koulutusohjelmat_[i].tuoOpiskelija(etunimi, sukunimi, osoite, puhelinnumero, opiskelijanumero);
-							cout << "Opiskelija lisatty!" << endl;
-						}
-					}
-
-					// Jos koulutusohjelmaa ei loydy vektorista, luodaan uusi koulutusohjelma
-					if (!onOlemassa)
-					{
-						koulutusohjelmat_.push_back(Koulutusohjelma(kOhjelma));
-
-						// Etsitaan tehty koulutusohjelma ja lisataan opiskelija
-						for (int j = 0; j != koulutusohjelmat_.size(); j++)
-						{
-							if (koulutusohjelmat_[j].annaNimi() == kOhjelma)
-							{
-								koulutusohjelmat_[j].tuoOpiskelija(etunimi, sukunimi, osoite, puhelinnumero, opiskelijanumero);
-							}
-						}
+						// Loytyi olemassa oleva ohjelma, lisataan siihen opiskelija
+						onOlemassa = true;
+						koulutusohjelmat_[i].tuoOpiskelija(etunimi, sukunimi, osoite, puhelinnumero, opiskelijanumero);
+						cout << "Opiskelija lisatty!" << endl;
 					}
 				}
-				// Koulutusohjelmia ei viela olemassa
-				else
+
+				// Jos koulutusohjelmaa ei loydy vektorista, luodaan uusi koulutusohjelma
+				if (!onOlemassa)
 				{
-					// Luodaan uusi
 					koulutusohjelmat_.push_back(Koulutusohjelma(kOhjelma));
 
 					// Etsitaan tehty koulutusohjelma ja lisataan opiskelija
@@ -315,23 +323,108 @@ void Koulu::tuoTiedot()
 						if (koulutusohjelmat_[j].annaNimi() == kOhjelma)
 						{
 							koulutusohjelmat_[j].tuoOpiskelija(etunimi, sukunimi, osoite, puhelinnumero, opiskelijanumero);
-							cout << "Opiskelija lisatty!" << endl;
 						}
 					}
 				}
-
 			}
-		}
-		else
-		{
-			cout << "Tiedostoa ei voitu avata" << endl;
+			// Koulutusohjelmia ei viela olemassa
+			else
+			{
+				// Luodaan uusi
+				koulutusohjelmat_.push_back(Koulutusohjelma(kOhjelma));
+
+				// Etsitaan tehty koulutusohjelma ja lisataan opiskelija
+				for (int j = 0; j != koulutusohjelmat_.size(); j++)
+				{
+					if (koulutusohjelmat_[j].annaNimi() == kOhjelma)
+					{
+						koulutusohjelmat_[j].tuoOpiskelija(etunimi, sukunimi, osoite, puhelinnumero, opiskelijanumero);
+						cout << "Opiskelija lisatty!" << endl;
+					}
+				}
+			}
+
 		}
 	}
+	inFile.close();
 }
 
 void Koulu::vieTiedot()
 {
+	string valinta;
 
+	if (koulutusohjelmat_.size() == 0)
+	{
+		cout << "Ei vietavia tietoja" << endl;
+		return;
+	}
+
+	cout << "Vie opettajia (1), tai opiskelijoita (2): ";
+	getline(cin, valinta);
+
+	while (valinta != "1" && valinta != "2")
+	{
+		cout << "Virheellinen valinta, yrita uudelleen: ";
+		getline(cin, valinta);
+	}
+
+	// Kirjoituspointer
+	ofstream outFile;
+
+	if (valinta == "1")
+	{
+		outFile.open("Opettajat.csv");
+
+		for (int i = 0; i < koulutusohjelmat_.size(); i++)
+		{
+			// Hae koulutusohjelman opettajat vektoriin
+			vector<Opettaja> opettajat = koulutusohjelmat_[i].annaOpettajat();
+
+			if (opettajat.size() > 0)
+			{
+				for (int j = 0; j < opettajat.size(); j++)
+				{
+					outFile << koulutusohjelmat_[i].annaNimi() << ";";
+					outFile << opettajat[j].annaEtunimi() << ";";
+					outFile << opettajat[j].annaSukunimi() << ";";
+					outFile << opettajat[j].annaOsoite() << ";";
+					outFile << opettajat[j].annaPuhelinnumero() << ";";
+					outFile << opettajat[j].annaTunnus() << ";";
+					outFile << opettajat[j].annaPalkka() << ";";
+					outFile << opettajat[j].annaOpetusala();
+					outFile << endl;
+				}
+				cout << endl << "Opettajat tallennettu!" << endl;
+			}
+		}
+	}
+
+	else
+	{
+		outFile.open("Opiskelijat.csv");
+
+		for (int i = 0; i < koulutusohjelmat_.size(); i++)
+		{
+			// Hae koulutusohjelman opiskelijat vektoriin
+			vector<Opiskelija> opiskelijat = koulutusohjelmat_[i].annaOpiskelijat();
+
+			if (opiskelijat.size() > 0)
+			{
+				for (int j = 0; j < opiskelijat.size(); j++)
+				{
+					outFile << koulutusohjelmat_[i].annaNimi() << ";";
+					outFile << opiskelijat[j].annaEtunimi() << ";";
+					outFile << opiskelijat[j].annaSukunimi() << ";";
+					outFile << opiskelijat[j].annaOsoite() << ";";
+					outFile << opiskelijat[j].annaPuhelinnumero() << ";";
+					outFile << opiskelijat[j].annaOpiskelijanumero();
+					outFile << endl;
+				}
+				cout << endl << "Opiskelijat tallennettu!" << endl;
+			}
+		}
+	}
+	outFile.close();
 }
 
 void Koulu::lisaaKoulutusohjelmaanOpettaja()

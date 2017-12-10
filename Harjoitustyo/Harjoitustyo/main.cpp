@@ -8,7 +8,5 @@ int main()
 
 	harkkatyo.aja();
 
-
-
 	return 0;
 }

@@ -84,10 +84,10 @@ void Sovellus::aja()
 		{
 			koulu.tuoTiedot();
 		}
-		/*else if (nro == "15")
+		else if (nro == "15")
 		{
 			koulu.vieTiedot();
-		}*/
+		}
 		else
 			// Jos syote 1-2 merkkia, mutta ei vastaa valikkotoimintoja
 			cout << "Virheellinen syote, yrita uudelleen" << endl;
