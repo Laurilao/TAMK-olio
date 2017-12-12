@@ -10,7 +10,7 @@ public:
 	Henkilo(string etunimi, string sukunimi, string osoite, string puhelinnumero);
 	Henkilo(const Henkilo &alkup);
 	Henkilo& operator=(const Henkilo & alkup);
-	~Henkilo();
+	virtual ~Henkilo();
 
 	string annaEtunimi() const;
 	string annaSukunimi() const;

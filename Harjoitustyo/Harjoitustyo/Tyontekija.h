@@ -9,7 +9,7 @@ public:
 	Tyontekija(string etunimi, string sukunimi, string osoite, string puhelinnumero, double palkka, string tunnus);
 	Tyontekija(const Tyontekija & alkup);
 	Tyontekija& operator=(const Tyontekija & alkup);
-	~Tyontekija();
+	virtual ~Tyontekija();
 
 	double annaPalkka();
 	virtual string annaTunnus();

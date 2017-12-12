@@ -9,7 +9,7 @@ public:
 	Koulu();
 	Koulu(string nimi);
 	Koulu& operator=(const Koulu & alkup);
-	~Koulu();
+	virtual ~Koulu();
 
 	// getter & setter nimelle
 	string annaNimi();

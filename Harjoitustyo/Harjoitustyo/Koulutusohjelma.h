@@ -14,7 +14,7 @@ public:
 	Koulutusohjelma();
 	Koulutusohjelma(string nimi);
 	Koulutusohjelma& operator=(const Koulutusohjelma & alkup);
-	~Koulutusohjelma();
+	virtual ~Koulutusohjelma();
 
 	// getter & setter
 	virtual string annaNimi();
